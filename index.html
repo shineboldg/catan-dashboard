@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Catan Score Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+   .border-yellow-500 {
+  border-color: #F59E0B;
+}
+
+.bg-yellow-200 {
+  background-color: #FEF3C7;
+}
+
+.border-green-500 {
+  border-color: #10B981;
+}
+
+.bg-green-200 {
+  background-color: #D1FAE5;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+  </style>
+</head>
+<body class="bg-blue-600 min-h-screen p-6 text-white font-sans">
+  <h1 class="text-3xl font-bold mb-6 text-center">Catan Dashboard</h1>
+
+  <!-- Form Section -->
+  <div class="form-section bg-white text-gray-800 p-6 rounded-xl shadow-lg max-w-xl mx-auto mb-8">
+    <label class="block mb-2 font-semibold">Тоглогчдын тоо (2-6):</label>
+    <input type="number" id="playerCount" min="2" max="6" value="2"
+           class="w-full border border-gray-300 p-2 rounded mb-4" />
+
+    <label class="block mb-2 font-semibold">Ялалтын оноо (Victory Points):</label>
+    <input type="number" id="victoryPoints" min="1" max="20" value="10"
+           class="w-full border border-gray-300 p-2 rounded mb-4" />
+
+    <button onclick="setupPlayers()"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+      Үүсгэх
+    </button>
+
+    <form id="nameForm" class="mt-4 space-y-2"></form>
+  </div>
+
+  <!-- Reset Button -->
+  <div id="resetSection" class="hidden max-w-xl mx-auto mb-8 text-center">
+    <button onclick="resetGame()"
+            class="bg-red-400 hover:bg-red-600 text-white px-6 py-3 rounded shadow">
+      Тоглоомыг дахин эхлүүлэх
+    </button>
+  </div>
+
+  <!-- Players Section -->
+  <div id="players"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -123,6 +123,15 @@ window.setupPlayers = function () {
     return;
   }
 
+  // Ялах оноог харуулах
+  const victoryPointDisplay = document.getElementById("victoryPointDisplay");
+  victoryPointDisplay.textContent = `Ялах оноо: ${victoryPointThreshold}`;
+
+  //Тоглогчийн тоо харуулах
+  const playersDisplay = document.getElementById("playerDisplay");
+  playersDisplay.textContent = `Тоглогчдын тоо: ${count}`;
+  
+  
   nameForm.innerHTML = "";
 
   for (let i = 0; i < count; i++) {
@@ -191,3 +200,117 @@ window.resetGame = function () {
   document.getElementById("nameForm").innerHTML = "";
   players = [];
 };
+
+function getTotalScore(player) {
+  let total = player.settlements + player.cities * 2 + player.victoryPoints; // Include victoryPoints
+  if (player.longestRoad) total += 2;
+  if (player.largestArmy) total += 2;
+  return total;
+}
+
+function renderPlayers() {
+  const playersDiv = document.getElementById("players");
+  playersDiv.innerHTML = "";
+  playersDiv.className = "grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto";
+
+  players.forEach(player => {
+    const totalScore = getTotalScore(player);
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div class="bg-white text-gray-800 rounded-xl shadow p-6 space-y-3">
+        <h2 class="text-xl font-bold">${player.name}</h2>
+        <div class="text-lg">Нийт оноо: <strong class="text-blue-600">${totalScore}</strong></div>
+
+        <div class="space-y-1">
+          ${renderStatRow(player.id, "Жижиг байшин", "settlements", player.settlements)}
+          ${renderStatRow(player.id, "Том байшин", "cities", player.cities)}
+          ${renderStatRow(player.id, "Зам", "roads", player.roads)}
+          ${renderStatRow(player.id, "Knight", "knights", player.knights)}
+          ${renderStatRow(player.id, "Victory Points", "victoryPoints", player.victoryPoints)}
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          ${player.longestRoad 
+            ? `<span class="inline-block bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full">🏆 Longest Road</span>` 
+            : ""}
+          ${player.largestArmy 
+            ? `<span class="inline-block bg-green-400 text-black text-sm font-semibold px-3 py-1 rounded-full">🛡️ Largest Army</span>` 
+            : ""}
+        </div>
+      </div>
+    `;
+    playersDiv.appendChild(div);
+  });
+}
+
+function renderStatRow(id, label, type, value) {
+  return `
+    <div class="flex items-center justify-between gap-2">
+      <div>
+        <strong>${label}:</strong> ${value}
+      </div>
+      <div class="flex gap-1">
+        <button onclick="changeBuilding(${id}, '${type}', 1)"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">+1</button>
+        <button onclick="changeBuilding(${id}, '${type}', -1)"
+                class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">-1</button>
+      </div>
+    </div>
+  `;
+}
+
+function evaluateLongestRoad() {
+  if (longestRoadLocked) return;
+
+  let topPlayer = null;
+  let maxRoads = 4;
+
+  players.forEach(p => {
+    if (p.roads >= maxRoads) {
+      if (p.roads > maxRoads || (p.roads === maxRoads && longestRoadOwnerId === p.id)) {
+        maxRoads = p.roads;
+        topPlayer = p;
+      }
+    }
+  });
+
+  if (!topPlayer) return;
+
+  players.forEach(p => p.longestRoad = false);
+  topPlayer.longestRoad = true;
+  longestRoadOwnerId = topPlayer.id;
+
+  if (topPlayer.roads === 15) {
+    longestRoadLocked = true;
+    topPlayer.hasLockedLongestRoad = true;
+  }
+}
+
+function evaluateLargestArmy() {
+  let topPlayer = null;
+  let maxKnights = 2;
+
+  players.forEach(p => {
+    if (p.knights >= maxKnights) {
+      if (p.knights > maxKnights || (p.knights === maxKnights && largestArmyOwnerId === p.id)) {
+        maxKnights = p.knights;
+        topPlayer = p;
+      }
+    }
+  });
+
+  if (!topPlayer) return;
+
+  players.forEach(p => p.largestArmy = false);
+  topPlayer.largestArmy = true;
+  largestArmyOwnerId = topPlayer.id;
+}
+
+function checkWinner() {
+  players.forEach(player => {
+    const total = getTotalScore(player);
+    if (total >= victoryPointThreshold) {
+      alert(`${player.name} has won the game with ${total} points!`);
+    }
+  });
+}

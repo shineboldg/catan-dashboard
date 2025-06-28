@@ -2,32 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catan Score Tracker</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
    .border-yellow-500 {
-  border-color: #F59E0B;
-}
+      border-color: #F59E0B;
+    }
 
-.bg-yellow-200 {
-  background-color: #FEF3C7;
-}
+    .bg-yellow-200 {
+      background-color: #FEF3C7;
+    }
 
-.border-green-500 {
-  border-color: #10B981;
-}
+    .border-green-500 {
+      border-color: #10B981;
+    }
 
-.bg-green-200 {
-  background-color: #D1FAE5;
-}
+    .bg-green-200 {
+      background-color: #D1FAE5;
+    }
 
-.border-4 {
-  border-width: 4px;
-}
+    .border-4 {
+      border-width: 4px;
+    }
+
+    .gameInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem; /* Margin top */
+      padding: 1rem; /* Padding */
+      background-color: #1E40AF; /* Dark blue */
+      color: #FFFFFF; /* White text */
+      border-radius: 0.5rem; /* Rounded corners */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+      width: 100%; /* Full width */
+      max-width: 600px; /* Max width */
+      margin: 0 auto; /* Center align */
+      font-family: 'Arial', sans-serif; /* Font family */
+      font-size: 1rem; /* Text size */
+      font-weight: 500; /* Font weight */
+      text-align: center; /* Center text */
+      line-height: 1.5; /* Line height */
+      padding: 1rem; /* Padding */
+      border: 2px solid #F59E0B; /* Yellow border */
+      border-radius: 0.5rem; /* Rounded corners */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+      margin-bottom: 1rem; /* Margin bottom */
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+    #victoryPointDisplay {
+      background-color: #1E3A8A; /* Dark blue */
+      color: #FFFFFF; /* White text */
+      text-align: center;
+      font-size: 1.125rem; /* Text size: lg */
+      font-weight: 600; /* Font weight: semibold */
+      padding: 1rem; /* Padding */
+      border-radius: 0.5rem; /* Rounded corners */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+      margin-top: 1rem; /* Margin top */
+      }
   </style>
 </head>
 <body class="bg-blue-600 min-h-screen p-4 sm:p-6 text-white font-sans">
   <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center">Catan Dashboard</h1>
+  <p class="js-victoryPoint"></p>
 
   <!-- Form Section -->
   <div class="form-section bg-white text-gray-800 p-4 sm:p-6 rounded-xl shadow-lg max-w-xl mx-auto mb-6 sm:mb-8">
@@ -54,6 +94,17 @@
       Тоглоомыг дахин эхлүүлэх
     </button>
   </div>
+
+  <div class="gameInfo">
+    <div id="victoryPointDisplay" class="text-lg font-semibold text-center text-white bg-blue-800 p-4 rounded-lg shadow-lg mt-4">
+      
+    </div>
+    <div id="playerDisplay" class="text-lg font-semibold text-center text-white bg-blue-800 p-4 rounded-lg shadow-lg mt-4">
+      
+    </div>
+  </div>
+
+  
 
   <!-- Players Section -->
   <div id="players" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-w-7xl mx-auto px-2 sm:px-4"></div>

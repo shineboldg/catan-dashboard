@@ -26,11 +26,11 @@
 }
   </style>
 </head>
-<body class="bg-blue-600 min-h-screen p-6 text-white font-sans">
-  <h1 class="text-3xl font-bold mb-6 text-center">Catan Dashboard</h1>
+<body class="bg-blue-600 min-h-screen p-4 sm:p-6 text-white font-sans">
+  <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center">Catan Dashboard</h1>
 
   <!-- Form Section -->
-  <div class="form-section bg-white text-gray-800 p-6 rounded-xl shadow-lg max-w-xl mx-auto mb-8">
+  <div class="form-section bg-white text-gray-800 p-4 sm:p-6 rounded-xl shadow-lg max-w-xl mx-auto mb-6 sm:mb-8">
     <label class="block mb-2 font-semibold">Тоглогчдын тоо (2-6):</label>
     <input type="number" id="playerCount" min="2" max="6" value="2"
            class="w-full border border-gray-300 p-2 rounded mb-4" />
@@ -40,7 +40,7 @@
            class="w-full border border-gray-300 p-2 rounded mb-4" />
 
     <button onclick="setupPlayers()"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+            class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
       Үүсгэх
     </button>
 
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Reset Button -->
-  <div id="resetSection" class="hidden max-w-xl mx-auto mb-8 text-center">
+  <div id="resetSection" class="hidden max-w-xl mx-auto mb-6 sm:mb-8 text-center">
     <button onclick="resetGame()"
             class="bg-red-400 hover:bg-red-600 text-white px-6 py-3 rounded shadow">
       Тоглоомыг дахин эхлүүлэх
@@ -56,7 +56,7 @@
   </div>
 
   <!-- Players Section -->
-  <div id="players"></div>
+  <div id="players" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-w-7xl mx-auto px-2 sm:px-4"></div>
 
   <script src="app.js" defer></script>
 </body>
